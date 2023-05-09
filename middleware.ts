@@ -23,10 +23,10 @@ export default withAuth(
 
     }
 
-    if (req.nextUrl.pathname.startsWith("/users") && !isInrole(req.nextauth.token, "admin"))
-      return NextResponse.redirect(
-        new URL("/about", req.url)
-      );
+    // if (req.nextUrl.pathname.startsWith("/users") && !isInrole(req.nextauth.token, "admin"))
+    //   return NextResponse.redirect(
+    //     new URL("/", req.url)
+    //   );
 
 
   },

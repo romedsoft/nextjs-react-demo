@@ -17,7 +17,7 @@ const SigninButton = () => {
     );
   }
   return (
-    <button onClick={() => signIn('Credentials')} className="text-green-600 ml-auto">
+    <button onClick={() => signIn('AzureADProvider')} className="text-green-600 ml-auto">
       Sign In
     </button>
   );
