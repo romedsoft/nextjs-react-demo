@@ -36,11 +36,7 @@ const handler = NextAuth({
             body: formBody,
           });
 
-          console.log(res);
-
         const user = await res.json();
-
-
 
         if (user.access_token) {
           // Any object returned will be saved in `user` property of the JWT
@@ -48,6 +44,7 @@ const handler = NextAuth({
           return user;
         } else {
           // If you return null then an error will be displayed advising the user to check their details.
+          console.log(user);
           return null;
 
           // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
@@ -66,13 +63,31 @@ const handler = NextAuth({
   ],
   callbacks: {
     async jwt({ token, user }) {
-      console.log(token);
-      console.log(user);
+
+
+      try{
+        const res = await fetch("https://127.0.0.1:5000/connect/userinfo", {
+          method: "POST",
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token.access_token
+          },
+          body: null,
+        });
+
+        user = await res.json();
+
+        console.log(user);
+      }catch(e){
+          console.log(e);
+      }
+      
+
       return { ...token, ...user };
     },
 
     async session({ session, token }) {
-      console.log(token);
+
       session.user = token as any;
       return session;
     },
