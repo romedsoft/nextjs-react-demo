@@ -25,7 +25,7 @@ const handler = NextAuth({
           'scope' : "openid profile offline_access roles"
         };
 
-        let parseToString = (value : string  | undefined) : string {
+        let parseToString = (value : string  | undefined) : string => {
                 if(value){
                   return value.toString()
                 }
