@@ -25,7 +25,15 @@ const handler = NextAuth({
           'scope' : "openid profile offline_access roles"
         };
 
-        const formBody = Object.entries(details).map(([key, value]) => encodeURIComponent(key) + '=' + encodeURIComponent(value)).join('&');
+        let parseToString = (value : string  | undefined) : string {
+                if(value){
+                  return value.toString()
+                }
+
+                return "";
+        }
+
+        const formBody = Object.entries(details).map(([key, value]) => encodeURIComponent(key) + '=' + encodeURIComponent(parseToString(value))).join('&');
 
         try {
           const res = await fetch("https://127.0.0.1:5000/connect/token", {
