@@ -14,8 +14,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className="h-full bg-gray-100">
       <body className="h-full">
         <Providers>
+        <div className="min-h-full">
           <Header />
           {children}
+        </div>
+          
         </Providers>
       </body>
     </html>
