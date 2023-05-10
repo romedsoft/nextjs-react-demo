@@ -4,6 +4,7 @@ interface PaginationProps {
     setCurrentPage: any;
     getPageData : any;
     currentPage: number;
+    defaultData : any[];
   }
 
   interface PaginationFetchProps{

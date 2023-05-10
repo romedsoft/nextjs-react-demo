@@ -2,13 +2,15 @@
 
 import { useState, useCallback,useEffect, useRef } from 'react';
 import TablePagination from '../components/table/TablePagination';
- 
+import PokemonTable from '../components/table/PokemonTable';
+import Loading from '../components/Loading';
 function Page() {
-
+    const stringLenght = 12;
+    const initialData = [{title: "-",webpageUrl:"-",provider: { name : "-"} }];
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
-    const [data, setData] = useState([{title: "-",webpageUrl:"-",provider: { name : "-"} }]);
-    const [totalItems, setTotalItems] = useState(0);
+    const [data, setData] = useState(initialData);
+    const [totalItems, setTotalItems] = useState(1);
     const [loading, setLoading] = useState(false);
     const fetchIdRef = useRef(0);
     
@@ -28,50 +30,40 @@ function Page() {
       }
     },[]);
 
-
-    const fetchApiData = async ({ limit ,  skip} : PaginationFetchProps) => {
-      try {
-        setLoading(true);
-        const options = {method: 'GET'};
-
-        const response = await fetch('https://mystoreapi.com/catalog/products?limit='+ limit +'&skip=' + skip, options);
-
-        const data = await response.json();
-        console.log(data);
-        setData(data.products);
-        setTotalItems(data.summary.count);
-        //setPageCount(data.paging.pages);
-        setLoading(false);
-      } catch (e) {
-        console.log("Error while fetching", e);
-        // setLoading(false)
-      }
-    };
+   
 
     const fetchApiData2 = async ({ page ,  pageSize} : PaginationFetchProps2) => {
       try {
         console.log(page);
         setCurrentPage(page);
         setLoading(true);
-        const url = 'https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/Search/ImageSearchAPI?q=taylor%20swift&pageNumber='+page+'&pageSize='+pageSize+'&autoCorrect=true';
+        const url = 'https://pokeapi.co/api/v2/ability/?limit='+ pageSize+'&offset=' + (page * pageSize);
+        console.log(url);
         const options = {
           method: 'GET',
-          headers: {
-            'X-RapidAPI-Key': 'bb1d38cd91msh44b71cee4026ab7p17e623jsnc8a5366a331a',
-            'X-RapidAPI-Host': 'contextualwebsearch-websearch-v1.p.rapidapi.com'
-          }
+          // headers: {
+          //   'X-RapidAPI-Key': 'bb1d38cd91msh44b71cee4026ab7p17e623jsnc8a5366a331a',
+          //   'X-RapidAPI-Host': 'contextualwebsearch-websearch-v1.p.rapidapi.com'
+          // }
         };
 
         const response = await fetch(url, options);
         const result = await response.json();
         console.log(result);
-        setData(result.value);
-        setTotalItems(result.totalCount);
+        setData(result.results);
+        setTotalItems(result.count);
+
+        // setData(initialData);
+        // setTotalItems(1);
+        
         //setPageCount(data.paging.pages);
         setLoading(false);
       } catch (e) {
         console.log("Error while fetching", e);
-        // setLoading(false)
+        setLoading(false);
+        setData(initialData);
+        setTotalItems(1);
+        
       }
     };
 
@@ -93,39 +85,16 @@ function Page() {
                 <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
                     <div className="overflow-hidden">
                       {!loading ? 
-                        <table className="min-w-full text-left text-sm font-light">
-                        <thead className="border-b font-medium dark:border-neutral-500">
-                            <tr key="-1">
-                            <th scope="col-4" className="px-6 py-4">Title</th>
-                            <th scope="col-4" className="px-6 py-4">Url</th>
-                            <th scope="col-4" className="px-6 py-4">Provider</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        { data.map((website : any, index) => (
 
-                            <tr key={index}
-                            className="border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-600">
-                            <td className="whitespace-nowrap px-6 py-4 font-medium">{website.title}</td>
-                            <td className="whitespace-nowrap px-6 py-4">{website.webpageUrl}</td>
-                            <td className="whitespace-nowrap px-6 py-4">{website.provider.name}</td>
-                            </tr> 
-                        ))}
-                            
-                        </tbody>
-                        </table> : 
-                        <div
-                          className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
-                          role="status">
-                          <span
-                            className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
-                            >Loading...</span>
-                          </div>
+                        <PokemonTable data={data} /> 
+                        : 
+                        <Loading/>
                         }
                     </div>
                 </div>
+                <TablePagination totalItems={totalItems } pageSize={pageSize} setCurrentPage={setCurrentPage} currentPage={currentPage} getPageData={getPageData} defaultData={initialData}/>
             </div>
-            <TablePagination totalItems={totalItems } pageSize={pageSize} setCurrentPage={setCurrentPage} currentPage={currentPage} getPageData={getPageData}/>
+            
        </div>       
       </div>
      </main>

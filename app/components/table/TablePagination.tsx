@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 
-const TablePagination = ({ currentPage  , totalItems , pageSize ,  getPageData } : PaginationProps) => {
+const TablePagination = ({ currentPage  , totalItems , pageSize ,  getPageData, defaultData } : PaginationProps) => {
 
     let pages = [];
 
