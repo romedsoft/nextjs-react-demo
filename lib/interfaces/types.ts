@@ -1,4 +1,6 @@
-export interface UserLinkType{
-    name : string;
-    href : string;
-}
+interface PaginationProps {
+    totalItems: number;
+    pageSize : number
+    setCurrentPage: any;
+    currentPage: number;
+  }

@@ -6,7 +6,6 @@ import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import UserMenu from './UserMenu'
 import Link from 'next/link'
 import UserMenuResponsive from './UserMenuResponsive'
-import { UserLinkType } from '@/lib/interfaces/types'
 
 const user = {
   name: 'Tom Cook',
@@ -17,6 +16,7 @@ const user = {
 const navigation = [
   { name: 'Dashboard', href: '/', current: true },
   { name: 'Users', href: '/users', current: false },
+  { name: 'Movies', href: '/movies', current: false },
   { name: 'About Us', href: '/about', current: false },
 ]
 
