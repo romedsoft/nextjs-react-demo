@@ -6,6 +6,7 @@ import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import UserMenu from './UserMenu'
 import Link from 'next/link'
 import UserMenuResponsive from './UserMenuResponsive'
+import { UserLinkType } from '@/lib/interfaces/types'
 
 const user = {
   name: 'Tom Cook',
@@ -19,10 +20,9 @@ const navigation = [
   { name: 'About Us', href: '/about', current: false },
 ]
 
-const userNavigation = [
+const userNavigation  = [
     { name: 'Your Profile', href: '#' },
     { name: 'Settings', href: '#' },
-    { name: 'Sign out', href: '#' },
   ]
 
 function classNames(...classes: any[]) {
@@ -59,6 +59,7 @@ export default function Header() {
                         {navigation.map((item) => (
 
                         <Link 
+                            key={item.name}
                             className={classNames(
                                                     item.current
                                                         ? 'bg-gray-900 text-white'
@@ -79,7 +80,7 @@ export default function Header() {
                   <div className="hidden md:block">
                     <div className="ml-4 flex items-center md:ml-6">      
                       {/* Profile dropdown */}
-                       <UserMenu></UserMenu>             
+                       <UserMenu userNavigation={userNavigation}></UserMenu>             
                     </div>
                   </div>
                   <div className="-mr-2 flex md:hidden">
@@ -114,7 +115,7 @@ export default function Header() {
                   ))}
                 </div>
                 <div className="border-t border-gray-700 pb-3 pt-4">
-                  <UserMenuResponsive/>
+                  <UserMenuResponsive userNavigation={userNavigation} />
                 </div>
               </Disclosure.Panel>
             </>

@@ -1,25 +1,14 @@
 'use client'
 
-import { Fragment } from 'react'
-import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Disclosure } from '@headlessui/react'
+import { BellIcon } from '@heroicons/react/24/outline'
 import { signIn, signOut, useSession } from "next-auth/react";
 import React from "react";
 
-function classNames(...classes: any[]) {
-    return classes.filter(Boolean).join(' ')
-  }
+const userImageUrl =  "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80";
 
-const userNavigation = [
-    { name: 'Your Profile', href: '#' },
-    { name: 'Settings', href: '#' },
-  ]
-
-  const userImageUrl =  "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80";
-
-const UserMenuResponsive = () => {
+const UserMenuResponsive = (props: any) => {
   const { data: session } = useSession();
-  console.log(session?.user);
 
   if (session && session.user) {
     return (
@@ -41,7 +30,7 @@ const UserMenuResponsive = () => {
                     </button>
                   </div>
         <div className="mt-3 space-y-1 px-2">
-                    {userNavigation.map((item) => (
+                    {props.userNavigation.map((item : any) => (
                       <Disclosure.Button
                         key={item.name}
                         as="a"
@@ -52,6 +41,7 @@ const UserMenuResponsive = () => {
                       </Disclosure.Button>
                     ))}
                     <Disclosure.Button 
+                    key="signout"
                     as="a" 
                     className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white" 
                     onClick={() => signOut()}>
