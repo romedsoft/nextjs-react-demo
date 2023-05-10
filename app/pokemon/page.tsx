@@ -8,7 +8,7 @@ function Page() {
     const stringLenght = 12;
     const initialData = [{title: "-",webpageUrl:"-",provider: { name : "-"} }];
     const [currentPage, setCurrentPage] = useState(1);
-    const [pageSize, setPageSize] = useState(10);
+    const [pageSize, setPageSize] = useState(50);
     const [data, setData] = useState(initialData);
     const [totalItems, setTotalItems] = useState(1);
     const [loading, setLoading] = useState(false);
@@ -73,7 +73,7 @@ function Page() {
     
     <header className="bg-white shadow">
     <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-      <h1 className="text-3xl font-bold tracking-tight text-gray-900">Movies</h1>
+      <h1 className="text-3xl font-bold tracking-tight text-gray-900">Pokemons</h1>
       </div>
     </header>
 
