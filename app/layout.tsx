@@ -1,5 +1,4 @@
 
-import AppBar from "./components/AppBar";
 import "./globals.css";
 import Providers from "./components/Providers";
 import Header from "./components/Header";
