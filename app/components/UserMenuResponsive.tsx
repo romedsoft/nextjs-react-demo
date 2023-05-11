@@ -57,7 +57,7 @@ const UserMenuResponsive = (props: any) => {
                     <Disclosure.Button 
                     as="a" 
                     className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white" 
-                    onClick={() => signIn('AzureADProvider')}>
+                    onClick={() => signIn()}>
                         Sign In
                     </Disclosure.Button>
          </div>

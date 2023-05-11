@@ -84,7 +84,7 @@ const UserMenu = (props: any) => {
     );
   }
   return (
-    <button onClick={() => signIn('AzureADProvider')} className='text-gray-400 hover:text-white'>
+    <button onClick={() => signIn()} className='text-gray-400 hover:text-white'>
       Sign In
     </button>
   );
