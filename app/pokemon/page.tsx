@@ -4,6 +4,7 @@ import { useState, useCallback,useEffect, useRef } from 'react';
 import TablePagination from '../components/table/TablePagination';
 import PokemonTable from '../components/table/PokemonTable';
 import Loading from '../components/Loading';
+
 function Page() {
     const stringLenght = 12;
     const initialData = [{title: "-",webpageUrl:"-",provider: { name : "-"} }];
@@ -18,10 +19,6 @@ function Page() {
       const fetchId = ++fetchIdRef.current;
 
       if (fetchId === fetchIdRef.current) {
-        // fetchApiData({
-        //   limit: pageSize,
-        //   skip: pageSize * currentPage
-        // });
 
         fetchApiData2({
           page: page,
@@ -30,40 +27,29 @@ function Page() {
       }
     },[]);
 
-   
-
     const fetchApiData2 = async ({ page ,  pageSize} : PaginationFetchProps2) => {
       try {
-        console.log(page);
+
         setCurrentPage(page);
         setLoading(true);
+
         const url = 'https://pokeapi.co/api/v2/ability/?limit='+ pageSize+'&offset=' + (page * pageSize);
-        console.log(url);
+
         const options = {
           method: 'GET',
-          // headers: {
-          //   'X-RapidAPI-Key': 'bb1d38cd91msh44b71cee4026ab7p17e623jsnc8a5366a331a',
-          //   'X-RapidAPI-Host': 'contextualwebsearch-websearch-v1.p.rapidapi.com'
-          // }
         };
 
         const response = await fetch(url, options);
         const result = await response.json();
-        console.log(result);
+
         setData(result.results);
         setTotalItems(result.count);
-
-        // setData(initialData);
-        // setTotalItems(1);
-        
-        //setPageCount(data.paging.pages);
         setLoading(false);
       } catch (e) {
         console.log("Error while fetching", e);
         setLoading(false);
         setData(initialData);
-        setTotalItems(1);
-        
+        setTotalItems(1); 
       }
     };
 
