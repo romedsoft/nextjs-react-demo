@@ -79,8 +79,8 @@ const handler = NextAuth({
       authorization: { params: { scope: "openid profile user.Read email" } },
     }),
     GoogleProvider({
-      clientId: process.env.GOOGLE_ID,
-      clientSecret: process.env.GOOGLE_SECRET,
+      clientId: process.env.GOOGLE_ID!,
+      clientSecret: process.env.GOOGLE_SECRET!,
       authorization: {
         params: {
           prompt: "consent",
